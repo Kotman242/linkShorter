@@ -3,7 +3,6 @@ package com.example.linkshorter.verification;
 import com.example.linkshorter.repository.LinkRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -14,17 +13,19 @@ public class CheckerOldLink {
 
     private final LinkRepository linkRepository;
     private LocalDate lastCheckDate;
-    @Value("${saveLink}")
-    private String saveLink;
+    @Value("${shortLink.saveLink}")
+    private int saveLink;
 
     public void checkOldLink(){
-        if(lastCheckDate==null){
+        if(saveLink<0){
+            return;
+        } else if (lastCheckDate==null){
             lastCheckDate=LocalDate.now();
         }
         if(!lastCheckDate.isBefore(LocalDate.now())){
             return;
         }
-        linkRepository.deleteOldLink(saveLink);
+        linkRepository.deleteOldLink(saveLink+" day");
         lastCheckDate=LocalDate.now();
     }
 }

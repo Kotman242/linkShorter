@@ -8,7 +8,6 @@ public class Link {
         this.shortLink = shortLink;
         this.longLink = longLink;
     }
-
     public Link() {
     }
 

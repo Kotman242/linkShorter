@@ -1,5 +1,6 @@
 package com.example.linkshorter.service;
 
+import com.example.linkshorter.model.Link;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -7,13 +8,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class Generator {
 
-    @Value("${generator.link.length}")
+    @Value("${shortLink.length}")
     private int length;
-    @Value("${generator.link.hasNumbers}")
+    @Value("${shortLink.hasNumbers}")
     private boolean hasNumbers;
-    @Value("${generator.link.hasLetters}")
+    @Value("${shortLink.hasLetters}")
     private boolean hasLetters;
-    public String createShotLink(){
+    public String createShotLineForLink(){
         return RandomStringUtils.random(length,hasLetters,hasNumbers);
     }
 }
