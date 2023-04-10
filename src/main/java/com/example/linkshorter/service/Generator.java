@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class Generator {
 
-    @Value("${shortLink.length}")
+    @Value("${token.length}")
     private int length;
-    @Value("${shortLink.hasNumbers}")
+    @Value("${token.hasNumbers}")
     private boolean hasNumbers;
-    @Value("${shortLink.hasLetters}")
+    @Value("${token.hasLetters}")
     private boolean hasLetters;
     public String createShotLineForLink(){
         return RandomStringUtils.random(length,hasLetters,hasNumbers);

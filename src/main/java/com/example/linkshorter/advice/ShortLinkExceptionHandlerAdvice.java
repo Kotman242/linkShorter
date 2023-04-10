@@ -1,6 +1,7 @@
 package com.example.linkshorter.advice;
 
 import com.example.linkshorter.exception.NotFoundLincException;
+import jakarta.validation.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

@@ -14,8 +14,8 @@ public class ShortLinkMaker {
     private final Generator generator;
     private final LinkRepository linkRepository;
 
-    @Value("${shortLink.host}")
-    private String host;
+    @Value("${shortLink.domain}")
+    private String domain;
     public String getUniqueLineForLink(){
         String link = generator.createShotLineForLink();
         while (linkRepository.linkExistShortLink(link)){
@@ -24,7 +24,7 @@ public class ShortLinkMaker {
         return link;
     }
 
-    public String getShortLink(Link link){
-        return host+"/"+link.getShortLink();
+    public String getShortLink(String link){
+        return domain +"/"+link;
     }
 }

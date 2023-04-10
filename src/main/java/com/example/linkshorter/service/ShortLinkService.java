@@ -18,12 +18,12 @@ public class ShortLinkService implements LinkService{
     @Override
     public String createShortLink(String longLink){
         if(linkRepository.linkExistLongLink(longLink)){
-            return linkRepository.getLinkWithLongtLink(longLink).getShortLink();
+            return shortLinkMaker.getShortLink(linkRepository.getLinkWithLongtLink(longLink).getShortLink());
         }
         String shortLink = shortLinkMaker.getUniqueLineForLink();
         Link link = new Link(shortLink,longLink);
         linkRepository.addLink(link);
-        return shortLinkMaker.getShortLink(link);
+        return shortLinkMaker.getShortLink(link.getShortLink());
     }
     @Override
     public String getLongLink(String shortLink){
