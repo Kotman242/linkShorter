@@ -1,6 +1,6 @@
 package com.example.linkshorter.service;
 
-import com.example.linkshorter.exception.NotFoundLincException;
+import com.example.linkshorter.exception.NotFoundLinkException;
 import com.example.linkshorter.model.Link;
 import com.example.linkshorter.repository.LinkRepository;
 import com.example.linkshorter.verification.CheckerOldLink;
@@ -10,27 +10,33 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ShortLinkService implements LinkService{
+public class ShortLinkService implements LinkService {
 
     private final LinkRepository linkRepository;
     private final ShortLinkMaker shortLinkMaker;
     private final CheckerOldLink checkerOldLink;
+
     @Override
-    public String createShortLink(String longLink){
-        if(linkRepository.linkExistLongLink(longLink)){
-            return shortLinkMaker.getShortLink(linkRepository.getLinkWithLongtLink(longLink).getShortLink());
+    public String createShortLink(String longLink) {
+        if (linkRepository.existsLinkByLongLink(longLink)) {
+            return shortLinkMaker.getShortLink(linkRepository.getLinkByLongLink(longLink).getShortLink());
         }
         String shortLink = shortLinkMaker.getUniqueLineForLink();
-        Link link = new Link(shortLink,longLink);
-        linkRepository.addLink(link);
-        return shortLinkMaker.getShortLink(link.getShortLink());
+        Link link = Link.builder()
+                .longLink(longLink)
+                .shortLink(shortLink)
+                .build();
+        linkRepository.save(link);
+        String result = shortLinkMaker.getShortLink(link.getShortLink());
+        return result;
     }
+
     @Override
-    public String getLongLink(String shortLink){
+    public String getLongLink(String shortLink) {
         checkerOldLink.checkOldLink();
-        Link link = linkRepository.getLinkWithShortLink(shortLink);
-        if (link ==null){
-            throw new NotFoundLincException("Ссылка не найдена");
+        Link link = linkRepository.getLinkByShortLink(shortLink);
+        if (link == null) {
+            throw new NotFoundLinkException("Ссылка не найдена");
         }
         return link.getLongLink();
     }

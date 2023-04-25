@@ -1,29 +1,28 @@
 package com.example.linkshorter.model;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "links")
+@Builder
 public class Link {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Column(unique = true)
     private String shortLink;
+    @Column(unique = true)
     private String longLink;
 
-    public Link(String shortLink, String longLink) {
-        this.shortLink = shortLink;
-        this.longLink = longLink;
-    }
-    public Link() {
-    }
-
-    public String getShortLink() {
-        return shortLink;
-    }
-
-    public void setShortLink(String shortLink) {
-        this.shortLink = shortLink;
-    }
-
-    public String getLongLink() {
-        return longLink;
-    }
-
-    public void setLongLink(String longLink) {
-        this.longLink = longLink;
-    }
+    @Temporal(TemporalType.DATE)
+    private Date date = new Date();
 }

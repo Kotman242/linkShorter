@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      file: migration/01-create-links-table.sql
+      relativeToChangelogFile: true

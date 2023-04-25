@@ -16,16 +16,16 @@ public class CheckerOldLink {
     @Value("${shortLink.saveLink}")
     private int saveLink;
 
-    public void checkOldLink(){
-        if(saveLink<0){
+    public void checkOldLink() {
+        if (saveLink < 0) {
             return;
-        } else if (lastCheckDate==null){
-            lastCheckDate=LocalDate.now();
+        } else if (lastCheckDate == null) {
+            lastCheckDate = LocalDate.now();
         }
-        if(!lastCheckDate.isBefore(LocalDate.now())){
+        if (!lastCheckDate.isBefore(LocalDate.now())) {
             return;
         }
-        linkRepository.deleteOldLink(saveLink+" day");
-        lastCheckDate=LocalDate.now();
+        linkRepository.deleteOldLink(saveLink + " day");
+        lastCheckDate = LocalDate.now();
     }
 }
