@@ -1,7 +1,7 @@
-FROM adoptopenjdk/openjdk17:alpine-jre
+FROM adoptopenjdk/openjdk11:alpine-jre
 
 EXPOSE 8080
 
-COPY linkShorter-0.0.1-SNAPSHOT.jar shorlink.jar
+COPY target/linkShorter-1.0.jar shorlink.jar
 
 CMD ["java", "-jar", "shorlink.jar"]

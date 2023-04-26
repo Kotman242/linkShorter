@@ -1,6 +1,5 @@
 package com.example.linkshorter.model;
 
-import com.example.linkshorter.model.dto.LinkTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;

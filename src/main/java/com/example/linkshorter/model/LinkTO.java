@@ -1,14 +1,14 @@
-package com.example.linkshorter.model.dto;
+package com.example.linkshorter.model;
 
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.URL;
-import org.springframework.boot.jackson.JsonComponent;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor

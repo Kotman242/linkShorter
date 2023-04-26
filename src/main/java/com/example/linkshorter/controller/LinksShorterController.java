@@ -1,8 +1,7 @@
 package com.example.linkshorter.controller;
 
-import com.example.linkshorter.model.dto.LinkTO;
+import com.example.linkshorter.model.LinkTO;
 import com.example.linkshorter.service.LinkService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.validation.Valid;
+
 @Controller
 @RequiredArgsConstructor
 public class LinksShorterController {
 
     private final LinkService linkService;
 
-    @PostMapping("/")
+    @PostMapping("/generate")
     ResponseEntity<LinkTO> createShortLink(@Valid @RequestBody LinkTO link) {
         String shortLink = linkService.createShortLink(link.getLink());
         LinkTO response = new LinkTO(shortLink);

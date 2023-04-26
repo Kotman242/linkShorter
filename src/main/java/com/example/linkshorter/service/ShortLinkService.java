@@ -8,6 +8,8 @@ import com.example.linkshorter.verification.ShortLinkMaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 @RequiredArgsConstructor
 public class ShortLinkService implements LinkService {
@@ -18,6 +20,7 @@ public class ShortLinkService implements LinkService {
 
     @Override
     public String createShortLink(String longLink) {
+        checkerOldLink.checkOldLink();
         if (linkRepository.existsLinkByLongLink(longLink)) {
             return shortLinkMaker.getShortLink(linkRepository.getLinkByLongLink(longLink).getShortLink());
         }
@@ -25,6 +28,7 @@ public class ShortLinkService implements LinkService {
         Link link = Link.builder()
                 .longLink(longLink)
                 .shortLink(shortLink)
+                .date(new Date())
                 .build();
         linkRepository.save(link);
         String result = shortLinkMaker.getShortLink(link.getShortLink());

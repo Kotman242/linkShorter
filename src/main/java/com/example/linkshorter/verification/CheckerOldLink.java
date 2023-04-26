@@ -17,15 +17,12 @@ public class CheckerOldLink {
     private int saveLink;
 
     public void checkOldLink() {
-        if (saveLink < 0) {
+        if (saveLink <= 0) {
             return;
-        } else if (lastCheckDate == null) {
+        } else if (lastCheckDate == null ||
+                lastCheckDate.isBefore(LocalDate.now())) {
+            linkRepository.deleteOldLink(saveLink);
             lastCheckDate = LocalDate.now();
         }
-        if (!lastCheckDate.isBefore(LocalDate.now())) {
-            return;
-        }
-        linkRepository.deleteOldLink(saveLink + " day");
-        lastCheckDate = LocalDate.now();
     }
 }

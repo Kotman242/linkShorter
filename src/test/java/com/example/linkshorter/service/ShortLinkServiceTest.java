@@ -8,12 +8,7 @@ import com.example.linkshorter.verification.ShortLinkMaker;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.quality.Strictness;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -22,7 +17,6 @@ import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
@@ -43,20 +37,21 @@ public class ShortLinkServiceTest {
     private static Link link;
 
     @BeforeAll
-    static void start(){
-        link = new Link(1,"shortLink","longLink",new Date());
+    static void start() {
+        link = new Link(1, "shortLink", "longLink", new Date());
     }
 
     @Test
-    void initTest(){
+    void initTest() {
         assertNotNull(linkRepository);
         assertNotNull(shortLinkMaker);
         assertNotNull(checkerOldLink);
         assertNotNull(service);
         assertNotNull(link);
     }
+
     @Test
-    void createShortLink_linkAlreadyExistsTest(){
+    void createShortLink_linkAlreadyExistsTest() {
         when(linkRepository.existsLinkByLongLink(anyString()))
                 .thenReturn(true);
         when(linkRepository.getLinkByLongLink(anyString()))
@@ -67,7 +62,7 @@ public class ShortLinkServiceTest {
         String expected = service.createShortLink(link.getShortLink());
 
         assertNotNull(expected);
-        assertEquals(expected,link.getShortLink());
+        assertEquals(expected, link.getShortLink());
     }
 
     @Test
@@ -81,31 +76,31 @@ public class ShortLinkServiceTest {
 
         String expected = service.createShortLink(link.getLongLink());
         assertNotNull(expected);
-        assertEquals(expected,"uniqueLine");
+        assertEquals(expected, "uniqueLine");
     }
 
     @Test
-    void getLongLink_LinkNotNull(){
+    void getLongLink_LinkNotNull() {
         when(linkRepository.getLinkByShortLink(anyString()))
                 .thenReturn(link);
 
         String result = service.getLongLink(link.getShortLink());
 
         assertNotNull(result);
-        assertEquals(result,link.getLongLink());
+        assertEquals(result, link.getLongLink());
     }
 
     @Test
-    void getLongLink_LinkIsNull(){
+    void getLongLink_LinkIsNull() {
         when(linkRepository.getLinkByShortLink(anyString()))
                 .thenReturn(null);
 
-         Throwable expected = assertThrows(NotFoundLinkException.class,()-> service.getLongLink(link.getShortLink()));
+        Throwable expected = assertThrows(NotFoundLinkException.class, () -> service.getLongLink(link.getShortLink()));
 
-         assertNotNull(expected);
-         assertTrue(expected instanceof NotFoundLinkException);
-         assertEquals(expected.getMessage(),"Ссылка не найдена");
+        assertNotNull(expected);
+        assertTrue(expected instanceof NotFoundLinkException);
+        assertEquals(expected.getMessage(), "Ссылка не найдена");
     }
 
-    }
+}
 
