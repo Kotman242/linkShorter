@@ -1,7 +1,6 @@
 package com.example.linkshorter.controller;
 
 
-import com.example.linkshorter.model.dto.LinkTO;
 import com.example.linkshorter.service.ShortLinkService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
@@ -14,10 +13,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -42,20 +42,21 @@ public class linkControllerTest {
     }
 
     @Test
-    void initTest(){
+    void initTest() {
         assertNotNull(linkLong);
         assertNotNull(linkShort);
         assertNotNull(objectMapper);
         assertNotNull(mockMvc);
         assertNotNull(shortLinkService);
     }
+
     @Test
     void createShortLink_EmptyLink_Test() throws Exception {
         when(shortLinkService.createShortLink(anyString())).thenReturn(linkShort);
 
         mockMvc.perform(post("/")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(""))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(""))
                 .andExpect(status().isBadRequest());
     }
 
@@ -70,12 +71,12 @@ public class linkControllerTest {
     }
 
     @Test
-    void correctSerializationLinkTest() throws Exception{
+    void correctSerializationLinkTest() throws Exception {
         when(shortLinkService.createShortLink(anyString())).thenReturn(linkShort);
 
         mockMvc.perform(post("/")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(linkLong)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(linkLong)))
                 .andExpect(jsonPath("$.link").isNotEmpty())
                 .andExpect(jsonPath("$.link").value(linkShort));
     }
@@ -94,7 +95,7 @@ public class linkControllerTest {
     void redirect_CorrectLink_Test() throws Exception {
         when(shortLinkService.getLongLink(linkShort)).thenReturn(linkLong);
 
-        mockMvc.perform(get("/{link}",linkShort))
+        mockMvc.perform(get("/{link}", linkShort))
                 .andExpect(status().isFound())
                 .andExpect(redirectedUrl(linkLong));
     }
@@ -103,7 +104,7 @@ public class linkControllerTest {
     void redirect_NotExistsLink_Test() throws Exception {
         when(shortLinkService.getLongLink(linkShort)).thenReturn(linkLong);
 
-        mockMvc.perform(get("/{link}",""))
+        mockMvc.perform(get("/{link}", ""))
                 .andExpect(status().isMethodNotAllowed())
                 .andExpect(redirectedUrl(null));
     }

@@ -1,17 +1,16 @@
 package com.example.linkshorter.verification;
 
 import com.example.linkshorter.repository.LinkRepository;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ShortLinkMaker {
-    private  Generator generator;
+    private Generator generator;
     private LinkRepository linkRepository;
     private String domain;
+
     @Autowired
     public ShortLinkMaker(Generator generator,
                           LinkRepository linkRepository,
