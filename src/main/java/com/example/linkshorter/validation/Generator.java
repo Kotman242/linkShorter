@@ -1,4 +1,4 @@
-package com.example.linkshorter.verification;
+package com.example.linkshorter.validation;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;

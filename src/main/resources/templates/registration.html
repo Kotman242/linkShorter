@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<form th:method="POST" th:action="${@environment.getProperty('application.point.registration')}" th:object="${person}">
+    <label for="username">Введите логин: </label>
+    <input type="text" th:field="*{username}" id="username">
+    <div th:if="${#fields.hasErrors('username')}" th:error="username error"></div>
+    <br/>
+    <label for="password">Введите пароль: </label>
+    <input type="text" th:field="*{password}" id="password">
+    <div th:if="${#fields.hasErrors('password')}" th:error="username error"></div>
+    <br/>
+    <input type="submit" value="Регистрация">
+</form>
+
+<div id="back2">
+    <a href="/">Отмена</a>
+</div>
+</body>
+</html>
+
+<style>
+
+    html, body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+    }
+
+    body {
+        display: flex;
+    }
+
+    form {
+        margin: auto;
+    }
+
+
+    #back2 > * {
+        position: absolute;
+        left: 50%;
+        margin-top: 350px;
+    }
+
+
+</style>

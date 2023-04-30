@@ -1,4 +1,4 @@
-package com.example.linkshorter.verification;
+package com.example.linkshorter.validation;
 
 import com.example.linkshorter.repository.LinkRepository;
 import lombok.RequiredArgsConstructor;

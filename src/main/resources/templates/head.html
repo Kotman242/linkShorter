@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+
+<div id="login">
+    <a href="/">Вход</a>
+</div>
+
+<div id="reg">
+    <a href="/registration">Регистрация</a>
+</div>
+
+<div id="logout">
+    <a href="/logout">Выход</a>
+</div>
+
+<form th:method="POST" th:action="${@environment.getProperty('application.point.generate')}" th:object="${link}">
+    <label for="link">Введите ссылку: </label>
+    <input type="text" th:field="*{link}" id="link">
+    <br/>
+    <input type="submit" value="Генерировать">
+
+
+</form>
+
+</body>
+</html>
+
+<style>
+
+    html, body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+    }
+
+    body {
+        display: flex;
+    }
+
+    form {
+        margin: auto;
+    }
+
+    div {
+        position: relative;
+    }
+
+    #login > * {
+        position: absolute;
+        top: 10px;
+        left: 1250px;
+    }
+
+    #reg > * {
+        position: absolute;
+        top: 50px;
+        left: 1250px;
+    }
+
+    #logout > * {
+        position: absolute;
+        top: 100px;
+        left: 1250px;
+    }
+</style>

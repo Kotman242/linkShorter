@@ -1,4 +1,4 @@
-package com.example.linkshorter.verification;
+package com.example.linkshorter.validation;
 
 import com.example.linkshorter.repository.LinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +32,6 @@ public class ShortLinkMaker {
     }
 
     public String getShortLink(String link) {
-        return domain + "/" + link;
+        return domain + "/get/" + link;
     }
 }

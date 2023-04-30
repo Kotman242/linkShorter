@@ -15,10 +15,9 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @JsonAutoDetect
 public class LinkTO {
-
     @NotNull(message = "Link cannot be null")
     @NotBlank(message = "Link cannot be empty")
     @URL(message = "Link must be a valid URL address")
-    private String Link;
+    private String link;
 
 }

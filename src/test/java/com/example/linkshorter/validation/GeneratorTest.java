@@ -1,4 +1,4 @@
-package com.example.linkshorter.verification;
+package com.example.linkshorter.validation;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
