@@ -1,7 +1,6 @@
 package com.example.linkshorter.validation;
 
 import com.example.linkshorter.model.Person;
-import com.example.linkshorter.service.PeopleSearchService;
 import com.example.linkshorter.service.SearchService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;

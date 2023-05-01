@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 
 @Service
 @AllArgsConstructor
-public class PeopleRegistrationService implements RegistrationService{
+public class PeopleRegistrationService implements RegistrationService {
 
     private final PersonRepository repository;
     private final PasswordEncoder encoder;

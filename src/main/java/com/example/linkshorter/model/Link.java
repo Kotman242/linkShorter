@@ -18,10 +18,11 @@ public class Link {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(unique = true,
+    @Column(name = "short_link",
+            unique = true,
             nullable = false)
     private String shortLink;
-    @Column(unique = true,
+    @Column(name = "long_link",
             nullable = false)
     private String longLink;
 

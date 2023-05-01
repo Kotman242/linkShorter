@@ -2,6 +2,7 @@ package com.example.linkshorter.service;
 
 import com.example.linkshorter.exception.NotFoundLinkException;
 import com.example.linkshorter.model.Link;
+import com.example.linkshorter.model.Person;
 import com.example.linkshorter.repository.LinkRepository;
 import com.example.linkshorter.repository.PersonRepository;
 import com.example.linkshorter.validation.CheckerOldLink;
@@ -24,8 +25,11 @@ public class ShortLinkService implements LinkService {
     @Override
     public String createShortLink(String longLink, String userLogin) {
         checkerOldLink.checkOldLink();
-        if (linkRepository.existsLinkByLongLink(longLink)) {
-            return shortLinkMaker.getShortLink(linkRepository.getLinkByLongLink(longLink).getShortLink());
+        Person person = personRepository.getByUsername(userLogin);
+        if (linkRepository.existsLinkByLongLinkAndPerson(longLink, person)) {
+            return shortLinkMaker.getShortLink(linkRepository.getFirstLinkByLongLink(longLink).getShortLink());
+        } else if (userLogin.equals("anonymousUser") && linkRepository.existsLinkByLongLink(longLink)) {
+            return shortLinkMaker.getShortLink(linkRepository.getFirstLinkByLongLink(longLink).getShortLink());
         }
         String shortLink = shortLinkMaker.getUniqueLineForLink();
         Link link;
@@ -40,7 +44,7 @@ public class ShortLinkService implements LinkService {
                     .longLink(longLink)
                     .shortLink(shortLink)
                     .date(new Date())
-                    .person(personRepository.getByUsername(userLogin))
+                    .person(person)
                     .build();
         }
         linkRepository.save(link);

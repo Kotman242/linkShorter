@@ -18,7 +18,7 @@ public interface LinkRepository extends JpaRepository<Link, Long> {
 
     boolean existsLinkByShortLink(String ShortLink);
 
-    Link getLinkByLongLink(String longLink);
+    Link getFirstLinkByLongLink(String longLink);
 
     Link getLinkByShortLink(String shortLink);
 
@@ -29,4 +29,7 @@ public interface LinkRepository extends JpaRepository<Link, Long> {
     void deleteOldLink(@Param("days") int days);
 
     List<Link> getLinksByPerson(Person person);
+
+    boolean existsLinkByLongLinkAndPerson(String longLink, Person person);
+
 }

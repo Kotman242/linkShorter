@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class PeopleSearchService implements SearchService{
+public class PeopleSearchService implements SearchService {
 
     private final PersonRepository personRepository;
 

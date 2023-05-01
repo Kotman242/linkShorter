@@ -18,6 +18,10 @@
     <a href="/logout">Выход</a>
 </div>
 
+<div id="linkList">
+    <a href="/all">Мои ссылки</a>
+</div>
+
 <form th:method="POST" th:action="${@environment.getProperty('application.point.generate')}" th:object="${link}">
     <label for="link">Введите ссылку: </label>
     <input type="text" th:field="*{link}" id="link">
@@ -26,7 +30,6 @@
 
 
 </form>
-
 </body>
 </html>
 
@@ -64,7 +67,13 @@
 
     #logout > * {
         position: absolute;
-        top: 100px;
+        top: 90px;
+        left: 1250px;
+    }
+
+    #linkList > * {
+        position: absolute;
+        top: 130px;
         left: 1250px;
     }
 </style>
