@@ -8,6 +8,7 @@ import com.example.linkshorter.repository.PersonRepository;
 import com.example.linkshorter.validation.CheckerOldLink;
 import com.example.linkshorter.validation.ShortLinkMaker;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -21,6 +22,9 @@ public class ShortLinkService implements LinkService {
     private final PersonRepository personRepository;
     private final ShortLinkMaker shortLinkMaker;
     private final CheckerOldLink checkerOldLink;
+
+    @Value("${shortLink.domain}")
+    private String domain;
 
     @Override
     public String createShortLink(String longLink, String userLogin) {
@@ -64,6 +68,8 @@ public class ShortLinkService implements LinkService {
 
     @Override
     public List<Link> getAllLink(String login) {
-        return linkRepository.getLinksByPerson(personRepository.getByUsername(login));
+        List<Link> linkList = linkRepository.getLinksByPerson(personRepository.getByUsername(login));
+        linkList.stream().forEach(link -> link.setShortLink(domain + "/get/" + link.getShortLink()));
+        return linkList;
     }
 }

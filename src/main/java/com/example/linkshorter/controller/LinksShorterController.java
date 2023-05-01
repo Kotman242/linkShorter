@@ -1,10 +1,8 @@
 package com.example.linkshorter.controller;
 
-import com.example.linkshorter.model.Link;
 import com.example.linkshorter.model.LinkTO;
 import com.example.linkshorter.service.LinkService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -23,8 +20,6 @@ public class LinksShorterController {
 
     private final LinkService linkService;
 
-    @Value("${shortLink.domain}")
-    private String domain;
 
     @PostMapping("${application.point.generate}")
     String createShortLink(@ModelAttribute("link") @Valid LinkTO link, Model model) {
@@ -43,9 +38,8 @@ public class LinksShorterController {
     @GetMapping("${application.point.all}")
     String getAllLink(Model model) {
         String userLogin = SecurityContextHolder.getContext().getAuthentication().getName();
-        List<Link> linkList = linkService.getAllLink(userLogin);
-        linkList.stream().forEach(link -> link.setShortLink(domain + "/get/" + link.getShortLink()));
-        model.addAttribute("lists", linkList);
+
+        model.addAttribute("lists", linkService.getAllLink(userLogin));
         return "allList";
     }
 

@@ -22,4 +22,6 @@ public class PeopleRegistrationService implements RegistrationService {
 
         repository.save(person);
     }
+
+
 }

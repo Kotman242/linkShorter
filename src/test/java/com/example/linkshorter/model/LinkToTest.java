@@ -29,4 +29,13 @@ public class LinkToTest {
         assertNotNull(result);
         assertEquals(result.getJson(), "{\"link\":\"Link\"}");
     }
+
+    @Test
+    void testDeserializeLinkTO() throws IOException {
+        LinkTO expected = new LinkTO("Link");
+        LinkTO result = this.json.parseObject("{\"link\":\"Link\"}");
+
+        assertNotNull(result);
+        assertEquals(result, expected);
+    }
 }
