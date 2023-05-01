@@ -2,6 +2,7 @@ package com.example.linkshorter.validation;
 
 import com.example.linkshorter.model.Person;
 import com.example.linkshorter.service.PeopleSearchService;
+import com.example.linkshorter.service.SearchService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -11,7 +12,7 @@ import org.springframework.validation.Validator;
 @Component
 public class PersonValidation implements Validator {
 
-    private final PeopleSearchService service;
+    private final SearchService service;
 
     @Override
     public boolean supports(Class<?> clazz) {

@@ -7,10 +7,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class PeopleSearchService {
+public class PeopleSearchService implements SearchService{
 
     private final PersonRepository personRepository;
 
+    @Override
     public boolean getPeople(String login) {
         Person person = personRepository.getByUsername(login);
         return person == null;

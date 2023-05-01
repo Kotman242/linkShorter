@@ -2,6 +2,7 @@ package com.example.linkshorter.controller;
 
 import com.example.linkshorter.model.LinkTO;
 import com.example.linkshorter.model.Person;
+import com.example.linkshorter.service.PeopleRegistrationService;
 import com.example.linkshorter.service.RegistrationService;
 import com.example.linkshorter.validation.PersonValidation;
 import lombok.AllArgsConstructor;
